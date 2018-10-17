@@ -26,3 +26,13 @@ function ageDiscount(age) {
     return false;
   };
 };
+
+$(document).ready(function() {
+  $(form#"tickets-form").submit(function(event) {
+  event.preventDefault();
+  var movie = $("#movies").val();
+  var time = $("#times").val();
+  var age = $("input#age").val();
+  var newTicket = new Ticket(movie, time, age);
+  });
+});
