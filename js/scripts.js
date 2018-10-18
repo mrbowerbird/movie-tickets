@@ -1,64 +1,72 @@
-function Ticket(movie, time, age) {
+var price = 10;
+var discountPrice = 8;
+
+function Ticket(movie, time, age, price) {
   this.movie = movie;
   this.time = time;
   this.age = age;
-  var price = 10;
-    // if (movieDiscount === true) {
-    //   price = price - 1;
-    // };
-    // if (timeDiscount === true) {
-    //   price = price - 1;
-    // };
-    // if (ageDiscount === true) {
-    //   price = price - 1;
-    // };
+  // var price = 10;
+  //   if (movieDiscount === true) {
+  //     this.price = price - 1;
+  //   };
+  //   if (timeDiscount === true) {
+  //     this.price = price - 1;
+  //   };
+  //   if (ageDiscount === true) {
+  //     this.price = price - 1;
+  //   };
   this.price = price;
 };
 
-// Ticket.prototype.finalPrice = function() {
+
+
+Ticket.prototype.finalPrice = function() {
+    if (this.movie === "old" || this.time === "matinee" || this.age >= 65) {
+      return this.price = discountPrice;
+    } else {
+      return this.price = price;
+    }
+  };
+//   var timeDiscount = function() {
+//     if (this.time === "matinee") {
+//       return true;
+//     } else {
+//       return false;
+//     };
+//   };
+//   var ageDiscount = function() {
+//     if (age >= 65) {
+//       return true;
+//     } else {
+//       return false;
+//     };
+//   };
+//
 //   var price = 10;
-//   if (movieDiscount === true) {
-//     price -= 1;
-//   };
-//   if (timeDiscount === true) {
-//     price -= 1;
-//   };
-//   if (ageDiscount === true) {
-//     price -= 1;
-//   };
-//   return this.price
+//     if (movieDiscount() === true) {
+//       price = price - 1;
+//     };
+//     if (timeDiscount() === true) {
+//       price = price - 1;
+//     };
+//     if (ageDiscount() === true) {
+//       price = price - 1;
+//     };
+//   return price;
 // };
 
-var movieDiscount = function(movie) {
-  if (movie === "old") {
-    return true;
-  } else {
-    return false;
-  };
-};
-function timeDiscount(time) {
-  if (time === "matinee") {
-    return true;
-  } else {
-    return false;
-  };
-};
-function ageDiscount(age) {
-  if (age >= 65) {
-    return true;
-  } else {
-    return false;
-  };
-};
+
 
 $(document).ready(function() {
   $("form#tickets-form").submit(function(event) {
     event.preventDefault();
     var movie = $("#movies").val();
     var time = $("#times").val();
-    var age = $("input#age").val();
-    var newTicket = new Ticket(movie, time, age);
-    $(".price").text(newTicket.price);
+    var age = parseInt($("input#age").val());
+    var newTicket = new Ticket(movie, time, age, price);
+    console.log(newTicket)
+    $(".price").text(newTicket.finalPrice());
     $("#price-box").show();
+
   });
 });
